@@ -8,7 +8,18 @@ struct CountsBySoH {
 };
 
 struct CountsBySoH countBatteriesByHealth(const int* presentCapacities, int nBatteries) {
-  struct CountsBySoH counts = {0, 0, 0};
+  int healthy=0,exchange=0,failed=0;
+  for(int i=0;i<nBatteries;i++)
+    {
+      float soh=(100*1.0*presentCapacities[i])/120.0;
+      if(soh>80)
+        healthy++;
+      else if(soh>65)
+        exchange++;
+      else
+        failed++;
+    }
+  struct CountsBySoH counts = {healthy, exchange, failed};
   return counts;
 }
 
